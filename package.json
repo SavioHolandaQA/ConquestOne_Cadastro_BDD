@@ -1,0 +1,15 @@
+{
+  "name": "cadastro-bdd",
+  "version": "1.0.0",
+  "description": "Projeto BDD com Playwright + Cucumber + TypeScript",
+  "scripts": {
+    "test": "npx cucumber-js --require-module ts-node/register --require tests/steps/**/*.ts tests/features/**/*.feature"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^10.1.0",
+    "@playwright/test": "^1.48.2",
+    "dotenv": "^16.4.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.0"
+  }
+}
