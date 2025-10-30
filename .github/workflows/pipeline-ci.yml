@@ -1,0 +1,35 @@
+name: CI - Cadastro Conquest One
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  e2e-tests:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repositório
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Configurar variáveis de ambiente
+        run: |
+          echo "BASE_URL=${{ secrets.BASE_URL }}" >> .env
+          echo "USER_FIRSTNAME=${{ secrets.USER_FIRSTNAME }}" >> .env
+          echo "USER_LASTNAME=${{ secrets.USER_LASTNAME }}" >> .env
+          echo "USER_EMAIL=${{ secrets.USER_EMAIL }}" >> .env
+          echo "USER_PASSWORD=${{ secrets.USER_PASSWORD }}" >> .env
+          echo "HEADLESS=true" >> .env
+
+      - name: Executar testes BDD com Playwright + Cucumber
+        run: npx cucumber-js --require-module ts-node/register --require tests/steps/**/*.ts tests/features/**/*.feature
