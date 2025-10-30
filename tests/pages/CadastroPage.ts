@@ -7,7 +7,7 @@ export class CadastroPage {
     this.page = page;
 
     // Define timeout padrão para todos os comandos da página
-    this.page.setDefaultTimeout(60000); // 120 segundos
+    this.page.setDefaultTimeout(10000); // 120 segundos
   }
 
   async acessarPagina() {
