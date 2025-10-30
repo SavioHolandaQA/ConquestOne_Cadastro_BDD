@@ -7,7 +7,7 @@ export class CadastroPage {
     this.page = page;
 
     // Define timeout padrão para todos os comandos da página
-    this.page.setDefaultTimeout(10000); // 120 segundos
+    this.page.setDefaultTimeout(10000); 
   }
 
   async acessarPagina() {
@@ -23,7 +23,7 @@ export class CadastroPage {
     // E-mail aleatório
    
     const email = `qa_${Date.now()}@teste.com`;
-    await this.page.waitForSelector('#vEMAIL', { timeout: 60000 });
+    //await this.page.waitForSelector('#vEMAIL', { timeout: 60000 });
     await this.page.fill('#vEMAIL', email);
 
    
