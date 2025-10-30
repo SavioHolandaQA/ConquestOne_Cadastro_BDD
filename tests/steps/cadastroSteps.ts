@@ -28,5 +28,5 @@ When('eu preencho o formulário de cadastro', async () => {
 Then('o cadastro deve ser realizado corretamente', async () => {
   await cadastroPage.validarMensagemSucesso();
   await page.waitForTimeout(3000);
- // await browser.close();
+  await browser.close();
 });

@@ -11,7 +11,6 @@ jobs:
     name: Executar testes com Cucumber + Playwright
     runs-on: windows-latest
 
-
     steps:
       # 1️⃣ Faz o checkout do código do repositório
       - name: 📦 Checkout do código
