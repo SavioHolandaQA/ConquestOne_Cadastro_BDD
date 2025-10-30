@@ -1,35 +1,35 @@
-name: CI - Cadastro Conquest One
+name: CI - Cadastro BDD com Playwright
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
 
+    
 jobs:
-  e2e-tests:
+  test:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout repositório
+      # 1️⃣ Faz o checkout do código
+      - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: Instalar Node.js
+      # 2️⃣ Instala o Node.js
+      - name: Configura Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 18
 
+      # 3️⃣ Instala as dependências
       - name: Instalar dependências
-        run: npm ci
+        run: npm install
 
-      - name: Configurar variáveis de ambiente
-        run: |
-          echo "BASE_URL=${{ secrets.BASE_URL }}" >> .env
-          echo "USER_FIRSTNAME=${{ secrets.USER_FIRSTNAME }}" >> .env
-          echo "USER_LASTNAME=${{ secrets.USER_LASTNAME }}" >> .env
-          echo "USER_EMAIL=${{ secrets.USER_EMAIL }}" >> .env
-          echo "USER_PASSWORD=${{ secrets.USER_PASSWORD }}" >> .env
-          echo "HEADLESS=true" >> .env
+      # 4️⃣ Instala os navegadores do Playwright
+      - name: Instalar navegadores do Playwright
+        run: npx playwright install --with-deps
 
-      - name: Executar testes BDD com Playwright + Cucumber
+      # 5️⃣ Executa os testes
+      - name: Executar testes BDD
         run: npx cucumber-js --require-module ts-node/register --require tests/steps/**/*.ts tests/features/**/*.feature
