@@ -42,6 +42,7 @@ export class CadastroPage {
     if (!mensagem?.includes('Para continuar, clique no link enviado para o seu e-mail.')) {
       throw new Error('Mensagem de sucesso não encontrada!');
     }
+    
   }
 }
 

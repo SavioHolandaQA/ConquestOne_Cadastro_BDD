@@ -5,6 +5,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:  # 🔹 Permite rodar manualmente pelo botão "Run workflow"
 
 jobs:
   e2e-tests:
@@ -41,9 +42,10 @@ jobs:
           HEADLESS: true
 
       # 6️⃣ Gera e publica o relatório de execução (opcional)
-      - name:  Upload de Relatório do Playwright (se existir)
+      - name: 📊 Upload de Relatório do Playwright (se existir)
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
           path: playwright-report/
+
