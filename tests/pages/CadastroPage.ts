@@ -7,7 +7,7 @@ export class CadastroPage {
     this.page = page;
 
     // Define timeout padrão para todos os comandos da página
-    this.page.setDefaultTimeout(10000); 
+    this.page.setDefaultTimeout(10000);
   }
 
   async acessarPagina() {
@@ -20,13 +20,9 @@ export class CadastroPage {
     await this.page.fill('#vFIRSTNAME', process.env.USER_FIRSTNAME!);
     await this.page.fill('#vLASTNAME', process.env.USER_LASTNAME!);
 
-    // E-mail aleatório
-   
     const email = `qa_${Date.now()}@teste.com`;
-    //await this.page.waitForSelector('#vEMAIL', { timeout: 60000 });
     await this.page.fill('#vEMAIL', email);
 
-   
     await this.page.fill('#vPASSWORD', process.env.USER_PASSWORD!);
 
     await this.page.locator('#vPASSWORDCONF').scrollIntoViewIfNeeded();
@@ -42,7 +38,7 @@ export class CadastroPage {
     if (!mensagem?.includes('Para continuar, clique no link enviado para o seu e-mail.')) {
       throw new Error('Mensagem de sucesso não encontrada!');
     }
-    
+
   }
 }
 

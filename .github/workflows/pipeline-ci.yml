@@ -5,7 +5,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-  workflow_dispatch:  # 🔹 Permite rodar manualmente pelo botão "Run workflow"
+
 
 jobs:
   e2e-tests:
@@ -14,25 +14,25 @@ jobs:
 
     steps:
       # 1️⃣ Faz o checkout do código do repositório
-      - name: 📦 Checkout do código
+      - name:  Checkout do código
         uses: actions/checkout@v4
 
       # 2️⃣ Instala o Node.js
-      - name: 🧰 Configurar Node.js
+      - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
       # 3️⃣ Instala as dependências do projeto
-      - name: 📦 Instalar dependências
+      - name:  Instalar dependências
         run: npm install
 
       # 4️⃣ Instala os navegadores necessários do Playwright
-      - name: 🌐 Instalar navegadores do Playwright
+      - name:  Instalar navegadores do Playwright
         run: npx playwright install --with-deps
 
       # 5️⃣ Executa os testes automatizados
-      - name: 🚀 Rodar testes com Cucumber + Playwright
+      - name:  Rodar testes com Cucumber + Playwright
         run: npx cucumber-js --require-module ts-node/register --require tests/steps/**/*.ts tests/features/**/*.feature
         env:
           BASE_URL: https://talent.conquestone.com/common.security.wpregisteruser.aspx
@@ -42,7 +42,7 @@ jobs:
           HEADLESS: true
 
       # 6️⃣ Gera e publica o relatório de execução (opcional)
-      - name: 📊 Upload de Relatório do Playwright (se existir)
+      - name:  Upload de Relatório do Playwright (se existir)
         if: always()
         uses: actions/upload-artifact@v4
         with:
