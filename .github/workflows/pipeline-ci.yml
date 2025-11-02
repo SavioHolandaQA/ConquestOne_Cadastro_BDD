@@ -5,8 +5,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
-
+    
 jobs:
   e2e-tests:
     name: Executar testes com Cucumber + Playwright
@@ -14,35 +13,33 @@ jobs:
 
     steps:
       # 1️⃣ Faz o checkout do código do repositório
-      - name:  Checkout do código
+      - name: Checkout do código
         uses: actions/checkout@v4
 
-      # 2️⃣ Instala o Node.js
+      # 2️⃣ Configura o Node.js
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
       # 3️⃣ Instala as dependências do projeto
-      - name:  Instalar dependências
+      - name: Instalar dependências
         run: npm install
 
-      # 4️⃣ Instala os navegadores necessários do Playwright
-      - name:  Instalar navegadores do Playwright
+      # 4️⃣ Cria o arquivo .env a partir do segredo salvo no GitHub
+      - name: Criar arquivo .env a partir do segredo do GitHub
+        run: echo "${{ secrets.ENV_FILE }}" > .env
+
+      # 5️⃣ Instala os navegadores necessários do Playwright
+      - name: Instalar navegadores do Playwright
         run: npx playwright install --with-deps
 
-      # 5️⃣ Executa os testes automatizados
-      - name:  Rodar testes com Cucumber + Playwright
+      # 6️⃣ Executa os testes automatizados com Cucumber + Playwright
+      - name: Rodar testes com Cucumber + Playwright
         run: npx cucumber-js --require-module ts-node/register --require tests/steps/**/*.ts tests/features/**/*.feature
-        env:
-          BASE_URL: https://talent.conquestone.com/common.security.wpregisteruser.aspx
-          USER_FIRSTNAME: QA
-          USER_LASTNAME: Teste
-          USER_PASSWORD: Teste@123
-          HEADLESS: true
 
-      # 6️⃣ Gera e publica o relatório de execução (opcional)
-      - name:  Upload de Relatório do Playwright (se existir)
+      # 7️⃣ (Opcional) Faz upload do relatório de execução do Playwright
+      - name: Upload de Relatório do Playwright
         if: always()
         uses: actions/upload-artifact@v4
         with:

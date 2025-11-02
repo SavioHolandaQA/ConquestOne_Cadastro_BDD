@@ -6,7 +6,7 @@ export class CadastroPage {
   constructor(page: Page) {
     this.page = page;
 
-    // Define timeout padrão para todos os comandos da página
+    
     this.page.setDefaultTimeout(10000);
   }
 
